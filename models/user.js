@@ -10,9 +10,9 @@ const UserSchema = new Schema({
     username: { type: String, required: true, unique: true },
     passwordHash: { type: String, required: true },
     // for the future: do they want reminders? do they want email or text reminders? 
-    email: { type: String, required: true , unique: true },
+    // email: { type: String, required: true , unique: true },
     // phone: a way for this to be required if they want text reminders?
-    phone: {type: Number, required: false},
+    // phone: {type: Number, required: false},
     active: { type: Boolean, default: true },
     // documents belonging to other collections
     buddies: [{ type: Schema.Types.ObjectId, ref: "Buddy" }]
