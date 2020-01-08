@@ -7,6 +7,7 @@ const morgan = require("morgan");
 const mongoose = require("mongoose");
 const dbConnection = require("./connection");
 const session = require("express-session");
+const MongoStore = require('connect-mongo')(session);
 
 // middleware
 app.use(morgan("dev"))
@@ -24,12 +25,29 @@ app.use(express.json());
 //Mongoose DB Connection
 mongoose.Promise = global.Promise
 
-if (process.env.NODE_ENV === "production") {
- app.use(express.static("client/build"));
+let sess = {
+    secret: 'salt portion',
+    cookie: {},
+    store: new MongoStore({ mongooseConnection: dbConnection }),
+    resave: false,
+    saveUninitialized: false
 }
 
+if (app.get('env') === 'production') {
+    app.set('trust proxy', 1) // trust first proxy
+    sess.cookie.secure = true // serve secure cookies
+}
+
+app.use(session(sess))
+
+// can i combine below if statement with the above trust proxy one?
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static("client/build"));
+}
+
+
 // rewrite
-app.use("/", function(req,res) {
+app.use("/", function (req, res) {
     res.sendFile(path.join(__dirname, "client", "build"))
 })
 
@@ -37,6 +55,6 @@ app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
 
-app.listen(PORT, function() {
+app.listen(PORT, function () {
     console.log(`🌎  ==> API Server now listening on PORT ${PORT}!`);
-  }); 
+}); 
