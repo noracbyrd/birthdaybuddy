@@ -8,6 +8,7 @@ const mongoose = require("mongoose");
 const dbConnection = require("./connection");
 const session = require("express-session");
 const MongoStore = require('connect-mongo')(session);
+const passport = require("./passport")
 
 // middleware
 app.use(morgan("dev"))
@@ -45,6 +46,10 @@ if (process.env.NODE_ENV === "production") {
     app.use(express.static("client/build"));
 }
 
+// Passport
+// app.use(passport.initialize())
+// keeping the above in the passport file
+app.use(passport.session())
 
 // rewrite
 app.use("/", function (req, res) {
