@@ -47,8 +47,7 @@ if (process.env.NODE_ENV === "production") {
 }
 
 // Passport
-// app.use(passport.initialize())
-// keeping the above in the passport file
+app.use(passport.initialize())
 app.use(passport.session())
 
 // rewrite

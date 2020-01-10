@@ -1,5 +1,5 @@
 // Using https://blog.cloudboost.io/node-js-authentication-with-passport-4a125f264cd4 as a resource
-
+const passport = require("passport")
 const LocalStrategy = require("passport-local").Strategy
 
 const local = new LocalStrategy((username, password, done) => {
@@ -26,3 +26,5 @@ passport.use("local", local);
 //       });
 //     }
 //   ));
+
+module.exports = local
