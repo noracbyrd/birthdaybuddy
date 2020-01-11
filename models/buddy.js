@@ -9,7 +9,8 @@ const buddySchema = new Schema({
     date: {type: Date, default: Date.now},
     // will need to make month two digits so it sorts properly
     month: {type: Number, required: true},
-    day: {type: Number, required: true}
+    day: {type: Number, required: true},
+    archive: {type: Boolean, required: true}
     // in future versions: reminders. 
     // dayOfReminder: {type: Boolean, required: true},
     // dayBeforeReminder: {type: Boolean, required: true},
