@@ -1,3 +1,5 @@
+// ! IMPORTANT ! Need to add in that these queries must include the specific user! cannot return all users' buddies!!!
+
 const db = require("../models");
 module.exports = {
     findAll: function (req, res) {

@@ -8,7 +8,7 @@ const bcrypt = require("bcryptjs")
 const UserSchema = new Schema({
     // documents belonging to schema
     username: { type: String, required: true, unique: true },
-    passwordHash: { type: String, required: true },
+    password: { type: String, required: true },
     // for the future: do they want reminders? do they want email or text reminders? 
     // email: { type: String, required: true , unique: true },
     // phone: a way for this to be required if they want text reminders?
