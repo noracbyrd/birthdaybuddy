@@ -55,6 +55,8 @@ app.use("/", function (req, res) {
     res.sendFile(path.join(__dirname, "client", "build"))
 })
 
+app.use("/api", api);
+
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
 });
