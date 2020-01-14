@@ -9,6 +9,7 @@ const dbConnection = require("./connection");
 const session = require("express-session");
 const MongoStore = require('connect-mongo')(session);
 const passport = require("./passport")
+const api = require("./routes/api")
 
 // middleware
 app.use(morgan("dev"))
