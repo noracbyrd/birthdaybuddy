@@ -54,21 +54,22 @@ router.post('/logout', (req, res) => {
     }
 })
 
-router.post('/new', (req, res) => {
+router.post('/', (req, res) => {
     console.log("user post / is getting hit")
     const {username, password, active} = req.body
     // can add email & phone n future versions
     db.User.findOne({ username }, (err, user) => {
         if (err) {
             console.log("User.js post error: ", err)
-        } else if (username) {
+        } else if (user) {
             res.json({
                 error: `Sorry, ${username} has already been taken.`
                 // should work in some kind of validation to let the user know if that username is taken
             })
         }
         else {
-            const newUser = new User({
+            console.log("a new user was created successfully")
+            const newUser = new db.User({
                 username: username,
                 passwordHash: password,
                 active: active
