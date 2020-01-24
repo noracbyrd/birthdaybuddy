@@ -3,31 +3,7 @@ const router = express.Router()
 const db = require("../../models")
 const passport = require("../../passport")
 
-router.post('/', (req, res) => {
-    const {username, password} = req.body
-    // can add email & phone n future versions
-    db.User.findOne({ username }, (err, user) => {
-        if (err) {
-            console.log("User.js post error: ", err)
-        } else if (user) {
-            res.json({
-                error: `Sorry, already a user with the username: ${user}`
-                // should work in some kind of validation to let the user know if that username is taken
-            })
-        }
-        else {
-            const newUser = new User({
-                username: username,
-                password: password,
-                active: true
-            })
-            newUser.save((err, savedUser) => {
-                if (err) return res.json(err)
-                res.json(savedUser)
-            })
-        }
-    })
-})
+console.log('in api/users')
 
 router.post(
     "/login",
@@ -76,6 +52,33 @@ router.post('/logout', (req, res) => {
     } else {
         res.send({ msg: 'no user to log out' })
     }
+})
+
+router.post('/new', (req, res) => {
+    console.log("user post / is getting hit")
+    const {username, password, active} = req.body
+    // can add email & phone n future versions
+    db.User.findOne({ username }, (err, user) => {
+        if (err) {
+            console.log("User.js post error: ", err)
+        } else if (username) {
+            res.json({
+                error: `Sorry, ${username} has already been taken.`
+                // should work in some kind of validation to let the user know if that username is taken
+            })
+        }
+        else {
+            const newUser = new User({
+                username: username,
+                passwordHash: password,
+                active: active
+            })
+            newUser.save((err, savedUser) => {
+                if (err) return res.json(err)
+                res.json(savedUser)
+            })
+        }
+    })
 })
 
 module.exports = router

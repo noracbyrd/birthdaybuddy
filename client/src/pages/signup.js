@@ -17,9 +17,26 @@ class Signup extends Component {
         e.preventDefault()
         const newUser = {
             username: this.state.username,
-            password: this.state.password
+            password: this.state.password,
+            active: true
         }
+        console.log(newUser)
         API.userSignup(newUser)
+        .then(response => {
+            console.log(response)
+            if (!response.data.errmsg) {
+                console.log('successful signup')
+                this.setState({ //redirect to login page
+                    redirectTo: '/login'
+                })
+            } else {
+                console.log('username already taken')
+            }
+        }).catch(error => {
+            console.log('signup error: ')
+            console.log(error)
+
+        })
         //API.createUser(newUser) goes here
         this.setState({
             username: "",

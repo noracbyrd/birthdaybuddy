@@ -10,19 +10,21 @@ const session = require("express-session");
 const MongoStore = require('connect-mongo')(session);
 const passport = require("./passport")
 const api = require("./routes/api")
+const bodyParser = require("body-parser")
 
 // middleware
-app.use(morgan("dev"))
-app.use(express.urlencoded({ extended: true }));
-app.use(express.json());
+// app.use(morgan("dev"))
+app.use(morgan("tiny"))
+// app.use(express.urlencoded({ extended: false }));
+// app.use(express.json());
 
 // alternate middleware: should i be using this?
-// app.use(
-//     bodyParser.urlencoded({
-//         extended: false
-//     })
-// )
-// app.use(bodyParser.json())
+app.use(
+    bodyParser.urlencoded({
+        extended: false
+    })
+)
+app.use(bodyParser.json())
 
 //Mongoose DB Connection
 mongoose.Promise = global.Promise
@@ -51,12 +53,15 @@ if (process.env.NODE_ENV === "production") {
 app.use(passport.initialize())
 app.use(passport.session())
 
-// rewrite
-app.use("/", function (req, res) {
-    res.sendFile(path.join(__dirname, "client", "build"))
-})
+// app.use("/api", api);
+app.use("/api", api)
 
-app.use("/api", api);
+
+// rewrite
+// app.use("/", function (req, res) {
+//     res.sendFile(path.join(__dirname, "client", "build"))
+// })
+app.use(express.static('client/build'))
 
 app.get("*", (req, res) => {
     res.sendFile(path.join(__dirname, "client", "build", "index.html"));
