@@ -5,13 +5,14 @@ class Signup extends Component {
 
     state = {
         username: "",
-        password: ""
+        password: "",
+        redirectTo: ""        
+
     }
     handleInputChange = e => {
         const { name, value } = e.target;
         this.setState({
-            [name]: value
-        })
+            [name]: value, })
     }
     handleFormSubmit = e => {
         e.preventDefault()
@@ -27,7 +28,7 @@ class Signup extends Component {
             if (!response.data.errmsg) {
                 console.log('successful signup')
                 this.setState({ //redirect to login page
-                    redirectTo: '/login'
+                    redirectTo: "/login"
                 })
             } else {
                 console.log('username already taken')

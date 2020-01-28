@@ -11,6 +11,6 @@ export default {
     userSignup: function (newUser) {
         console.log("api is hit")
         console.log(newUser)
-        return axios.post("/api/users/new", newUser)
+        return axios.post("/api/users", newUser)
     }
 }

@@ -71,7 +71,7 @@ router.post('/', (req, res) => {
             console.log("a new user was created successfully")
             const newUser = new db.User({
                 username: username,
-                passwordHash: password,
+                password: password,
                 active: active
             })
             newUser.save((err, savedUser) => {
