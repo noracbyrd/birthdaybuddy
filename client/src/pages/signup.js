@@ -50,7 +50,7 @@ class Signup extends Component {
                 <form>
                 <div className="row">
                     <div className="input-field col s12">
-                        <div><input name="username" value={this.state.title} type="text" className="validate" onChange={this.handleInputChange}/>
+                        <div><input name="username" value={this.state.username} type="text" className="validate" onChange={this.handleInputChange}/>
                             <label htmlFor="username">Username</label>
                         </div>
                     </div>
