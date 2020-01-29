@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { Redirect } from 'react-router-dom'
 import API from "../utils/API"
 
 class Signup extends Component {
@@ -6,8 +7,7 @@ class Signup extends Component {
     state = {
         username: "",
         password: "",
-        redirectTo: ""        
-
+        toSignin: false        
     }
     handleInputChange = e => {
         const { name, value } = e.target;
@@ -28,7 +28,7 @@ class Signup extends Component {
             if (!response.data.errmsg) {
                 console.log('successful signup')
                 this.setState({ //redirect to login page
-                    redirectTo: "/login"
+                    toSignin: true
                 })
             } else {
                 console.log('username already taken')
@@ -45,6 +45,8 @@ class Signup extends Component {
         })
     }
     render() {
+        if (this.state.toSignin) {
+            return <Redirect to='/login'/>}
         return (
             <div>
                 <form>
